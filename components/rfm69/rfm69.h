@@ -203,6 +203,9 @@ class RFM69Component : public Component, public spi::SPIDevice<spi::BIT_ORDER_MS
   }
 
  private:
+  // Pin assignments
+  GPIOPin *irq_pin_{nullptr};
+  GPIOPin *rst_pin_{nullptr};
   // Configuration
   float frequency_{868.0};
   uint8_t network_id_{100};
