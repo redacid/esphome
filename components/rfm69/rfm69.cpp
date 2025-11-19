@@ -1,6 +1,17 @@
 #include "rfm69.h"
 #include "rfm69_registers.h"
+
+#ifdef ESPHOME_LOG_HAS_CONFIG
 #include "esphome/core/log.h"
+#else
+// Mock logging для тестування
+#define ESP_LOGCONFIG(tag, ...) printf(__VA_ARGS__); printf("\n")
+#define ESP_LOGE(tag, ...) printf("ERROR: "); printf(__VA_ARGS__); printf("\n")
+#define ESP_LOGW(tag, ...) printf("WARN: "); printf(__VA_ARGS__); printf("\n")
+#define ESP_LOGI(tag, ...) printf("INFO: "); printf(__VA_ARGS__); printf("\n")
+#define ESP_LOGD(tag, ...) printf("DEBUG: "); printf(__VA_ARGS__); printf("\n")
+#define ESP_LOGV(tag, ...) printf("VERBOSE: "); printf(__VA_ARGS__); printf("\n")
+#endif
 
 namespace esphome {
 namespace rfm69 {
@@ -432,11 +443,11 @@ RFM69RSSI RFM69Component::read_rssi_(bool force_trigger) {
     return this->read_register_(RFM69_REG_RSSIVALUE);
 }
 
-int16_t RFM69Component::rssi_internal_to_dbm_(RFM69RSSI internal_rssi) {
+int16_t RFM69Component::rssi_internal_to_dbm_(RFM69RSSI internal_rssi) const {
     return static_cast<int16_t>(-(internal_rssi / 2));
 }
 
-RFM69RSSI RFM69Component::rssi_dbm_to_internal_(int16_t rssi_dbm) {
+RFM69RSSI RFM69Component::rssi_dbm_to_internal_(int16_t rssi_dbm) const {
     return static_cast<RFM69RSSI>(-rssi_dbm * 2);
 }
 

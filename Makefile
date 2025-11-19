@@ -36,3 +36,8 @@ build: clean
 	cd build
 	cmake ..
 	make
+
+.ONESHELL:
+test: build
+	cd $(PWD)/build/test/
+	./rfm69_test

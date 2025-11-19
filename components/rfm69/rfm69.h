@@ -186,8 +186,8 @@ class RFM69Component : public Component {
 
   // RSSI and power management
   RFM69RSSI read_rssi_(bool force_trigger = false);
-  int16_t rssi_internal_to_dbm_(RFM69RSSI internal_rssi);
-  RFM69RSSI rssi_dbm_to_internal_(int16_t rssi_dbm);
+  int16_t rssi_internal_to_dbm_(RFM69RSSI internal_rssi) const;
+  RFM69RSSI rssi_dbm_to_internal_(int16_t rssi_dbm) const;
 
   // Encryption
   void set_encryption_(const char *key);
@@ -196,15 +196,15 @@ class RFM69Component : public Component {
   void set_configuration_();
 
   // Helper macros implementation
-  bool get_ack_requested_(RFM69ControlFlags flags) { return (flags >> RFM69_ACK_REQUESTED) & 1; }
+  bool get_ack_requested_(RFM69ControlFlags flags) const { return (flags >> RFM69_ACK_REQUESTED) & 1; }
   void set_ack_requested_(RFM69ControlFlags &flags, bool value) {
     flags = (flags & ~(1 << RFM69_ACK_REQUESTED)) | (value << RFM69_ACK_REQUESTED);
   }
-  bool get_ack_received_(RFM69ControlFlags flags) { return (flags >> RFM69_ACK_RECEIVED) & 1; }
+  bool get_ack_received_(RFM69ControlFlags flags) const { return (flags >> RFM69_ACK_RECEIVED) & 1; }
   void set_ack_received_(RFM69ControlFlags &flags, bool value) {
     flags = (flags & ~(1 << RFM69_ACK_RECEIVED)) | (value << RFM69_ACK_RECEIVED);
   }
-  bool get_ack_rssi_report_(RFM69ControlFlags flags) { return (flags >> RFM69_ACK_RSSI_REPORT) & 1; }
+  bool get_ack_rssi_report_(RFM69ControlFlags flags) const { return (flags >> RFM69_ACK_RSSI_REPORT) & 1; }
   void set_ack_rssi_report_(RFM69ControlFlags &flags, bool value) {
     flags = (flags & ~(1 << RFM69_ACK_RSSI_REPORT)) | (value << RFM69_ACK_RSSI_REPORT);
   }
