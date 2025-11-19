@@ -109,6 +109,10 @@ class RFM69Component : public Component, public spi::SPIDevice<spi::BIT_ORDER_MS
 
   float get_setup_priority() const override { return setup_priority::DATA; }
 
+ // Pin configuration methods
+  void set_irq_pin(GPIOPin *pin) { this->irq_pin_ = pin; }
+  void set_rst_pin(GPIOPin *pin) { this->rst_pin_ = pin; }
+
   // Configuration methods
   void set_frequency(float frequency) { this->frequency_ = frequency; }
   void set_network_id(uint8_t network_id) { this->network_id_ = network_id; }
